@@ -1,6 +1,9 @@
 package fr.umlv.littlethinker.main;
 
 import fr.umlv.littlethinker.LittleThinker;
+import fr.umlv.littlethinker.VideoRam;
+
+import java.util.Scanner;
 
 /**
  * Classe de démarrage de LittleThinker
@@ -14,6 +17,17 @@ public class Main {
 	 * @param args arguments, rien n'est traité
 	 */
 	public static void main(String[] args) {
-		new LittleThinker();
+//		new LittleThinker();
+		VideoRam vr = new VideoRam();
+//		vr.setBitAt(0, 0,true);
+//		vr.setBitAt(0, 7,true);
+		vr.setBitAt(239, 7,true);
+		String touche=System.in.toString();
+		Scanner scanner = new Scanner(touche);
+		touche = scanner.next();
+		vr.setBitAt(239, 7,false);
+
+
+		scanner.close();
 	}
 }
