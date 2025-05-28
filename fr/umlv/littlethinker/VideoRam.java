@@ -11,15 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
-public class VideoRam extends JFrame  {
+public class VideoRam extends JPanel {
 	
 	private int largeur = 80;
 	private int hauteur = 24;
@@ -32,16 +26,16 @@ public class VideoRam extends JFrame  {
 
 //		this.largeur = modele.getLargeur();
 //		this.hauteur= modele.getHauteur();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(TAILLECASE * largeur, TAILLECASE * hauteur));
 		setLocation(100, 200);
-		setResizable(false);
+//		setResizable(false);
 		GridLayout layout = new GridLayout(hauteur, largeur);
 		setLayout(layout);
 //		createControls();
 		buildGrilleChiffres();
 		setVisible(true);
-		pack();
+//		pack();
 		
 	}
 	

@@ -27,9 +27,12 @@ public class LittleThinker extends JFrame{
         setSize(1000, 600);
 
         JSplitPane splitV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, proc, new JScrollPane(term));
-        add(splitV);
-        
-        JSplitPane splitH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitV, new JScrollPane(mem));
+//        add(splitV);
+        VideoRam vr = new VideoRam();
+        JSplitPane splitVr = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitV, new JScrollPane(vr));
+        add(splitVr);
+
+        JSplitPane splitH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitVr, new JScrollPane(mem));
         add(splitH);
 
         setVisible(true);
