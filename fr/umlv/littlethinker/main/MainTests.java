@@ -15,14 +15,13 @@ public class MainTests {
 	 */
 	public static void main(String[] args) {
 //		new LittleThinker();
-		VideoRam vr = new VideoRam();
-		vr.setBitAt(10, 0,true);
+//		vr.setBitAt(10, 0,true);
 //		vr.setBitAt(0, 7,true);
-		vr.setBitAt(230, 7,true);
+//		vr.setBitAt(230, 7,true);
 		//String touche=System.in.toString();
 		//Scanner scanner = new Scanner(touche);
 		//touche = scanner.next();
-		vr.setBitAt(239, 7,true);
+//		vr.setBitAt(239, 7,true);
 
 
 		//scanner.close();

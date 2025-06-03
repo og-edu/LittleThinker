@@ -17,10 +17,13 @@ public class VideoRam extends JPanel {
 	
 	private int largeur = 80;
 	private int hauteur = 24;
-	private final int TAILLECASE = 20;
+	private final int TAILLECASE = 10;
+	/* le tableau contenant l'ensemble des JLabels qui constituent
+	la mEmoire vidEo (1 JLabel par bit)
+	 */
 	private ArrayList<JLabel> tableau = new ArrayList<>();
 	
-	public VideoRam() throws HeadlessException {
+	public VideoRam(int largeur, int hauteur) throws HeadlessException {
 		//super(titre);
 		//this.controller = ctrl;
 
@@ -80,8 +83,9 @@ public class VideoRam extends JPanel {
 		for (int i=1;i<=hauteur * largeur;i++) {
 //			JLabel jl = jl(numeroDeBit(i), new Color((100 + (i*40))%255 , (200 + (i*40))%255, (i*40)%255));
 //			JLabel jl = jl(numeroDeBit(i), new Color(couleurDeBit(i), couleurDeBit(i), couleurDeBit(i)));
-			JLabel jl = jl(numeroDeBit(i), new Color(255, 255, 255));
-			jl.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+			JLabel jl = jl(numeroDeBit(i), new Color(0, 0, 0));
+			jl.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+			jl.setMaximumSize(new Dimension(TAILLECASE, TAILLECASE));
 			tableau.add(jl);
 			add(jl);
 		}
@@ -130,8 +134,23 @@ public class VideoRam extends JPanel {
 	 * @param etat
 	 */
 	public void setBitAt(int octet,int bitNumber,boolean etat){
-		if (etat) tableau.get(octet*8 + (7 -bitNumber)).setBackground(Color.BLACK);
-		else tableau.get(octet*8 + (7 -bitNumber)).setBackground(Color.WHITE);
+		if (etat) tableau.get(octet*8 + (7 -bitNumber)).setBackground(Color.WHITE);
+		else tableau.get(octet*8 + (7 -bitNumber)).setBackground(Color.BLACK);
+	}
+/**
+	 * permet de dEfinir la valeur des 8 bits dans l'octet correspondant
+	 * (la premiEre case de la mEmoire vidEo commence A l'indice 0)
+	 * @param octet
+	 * @param valeur
+	 */
+	// TODO : A tester
+	public void setOctet(int octet, int valeur){
+		int val = valeur & 0xFF;
+		for (int i=7;i>=0;i--) {
+			int valeurBit = (val >> i) & 0x01;
+			Color couleur = valeurBit == 1 ? Color.WHITE : Color.BLACK;
+			tableau.get(octet * 8 + (7 - i)).setBackground(couleur);
+		}
 	}
 
 //	@Override

@@ -24,11 +24,11 @@ public class LittleThinker extends JFrame{
         term = new Terminal();
         proc = new Processor(mem, term);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 600);
+        setSize(1000, 650);
 
         JSplitPane splitV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, proc, new JScrollPane(term));
 //        add(splitV);
-        VideoRam vr = new VideoRam();
+        VideoRam vr = new VideoRam(8,24);
         JSplitPane splitVr = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitV, new JScrollPane(vr));
         add(splitVr);
 
@@ -38,5 +38,12 @@ public class LittleThinker extends JFrame{
         setVisible(true);
         splitV.setDividerLocation(0.5);
         splitH.setDividerLocation(0.75);
+        // TODO : remove tests
+        ///  TESTS
+        vr.setOctet(0,255);
+
+
+        ///  TESTS
+
     }
 }
