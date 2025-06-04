@@ -22,18 +22,30 @@ public class VideoRam extends JPanel {
 	la mEmoire vidEo (1 JLabel par bit)
 	 */
 	private ArrayList<JLabel> tableau = new ArrayList<>();
-	
+
+	/**
+	 * ReprEsente la mEmoire vidEo en nombre de caractEres
+	 * (1 aaractEre = 1 octet de large et 8 octets de haut)
+	 * Organisation de la mEmoire :
+	 *  - commence A l'octet zEro
+	 *  - l'octet le plus A droite de la ligne 1 est 'largeur - 1'
+	 *  - l'octet le plus A gauche de la ligne 2 est 'largeur + 8"
+	 *  - le dernier octet (en bas A droite est '(largeur * hauteur * 8) - 1)
+	 * @param largeur : la largeur en caractEres
+	 * @param hauteur : la hauteur en caractEres
+	 * @throws HeadlessException
+	 */
 	public VideoRam(int largeur, int hauteur) throws HeadlessException {
 		//super(titre);
 		//this.controller = ctrl;
 
-//		this.largeur = modele.getLargeur();
-//		this.hauteur= modele.getHauteur();
+		this.largeur = largeur*8;
+		this.hauteur= hauteur*8;
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(TAILLECASE * largeur, TAILLECASE * hauteur));
 		setLocation(100, 200);
 //		setResizable(false);
-		GridLayout layout = new GridLayout(hauteur, largeur);
+		GridLayout layout = new GridLayout(this.hauteur, this.largeur);
 		setLayout(layout);
 //		createControls();
 		buildGrilleChiffres();
