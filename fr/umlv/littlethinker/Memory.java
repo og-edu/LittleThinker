@@ -17,20 +17,24 @@ public class Memory extends JTable {
 	private boolean editable;
 	private final MemoryRenderer renderer;
 
-	// positionnement des  colonnes
+	// positionnement des colonnes
 	final int COL_DEC = 1;
 	final int COL_HEX = 2;
 	final int COL_BIN = 3;
 	// gestion des Events
 	private TableModelListener listener;
+	// lien avec VideoRam pour acces A la ramVidEo
+	VideoRam vr = null;
 
 	/**
 	 * Initialise la mEmoire
-	 * @param rowCount le nombre d'adresses dans la mEmoire
-	 * 
+	 *
+	 * @param rowCount      le nombre d'adresses dans la mEmoire
+	 * @param vr
 	 */
-	public Memory(int rowCount){
+	public Memory(int rowCount, VideoRam vr){
 		super(rowCount, 4);
+		this.vr = vr;
 		editable = true;
 		
 		// on place les titres de colonnes
@@ -39,7 +43,7 @@ public class Memory extends JTable {
 		getColumnModel().getColumn(2).setHeaderValue("(hexa)");
 		getColumnModel().getColumn(3).setHeaderValue("(bin)");
 		// on rEduit la taille de la colonne des adresses
-		getColumnModel().getColumn(0).setPreferredWidth(24);
+		getColumnModel().getColumn(0).setPreferredWidth(26);
 		// on empeche l'utilisateur de changer l'ordre des colonnes
 		getTableHeader().setReorderingAllowed(false);
 
@@ -157,7 +161,10 @@ public class Memory extends JTable {
 	}
 
 	/**
-	 *
+	 * Gestion des valeurs numEriques saisies directement dans la mEmoire :
+	 * quand une valeur numErique (donc autre chose qu'un mnEmonique est
+	 * saisie en mEmoire, cette mEthode via le listener fera la conversion
+	 * dans les autres colonnes de la valeur dEcimale, binaire, hexa selon la
 	 * @param
 	 */
 	private void setListener(AbstractTableModel model) {
@@ -169,8 +176,8 @@ public class Memory extends JTable {
 					int column = e.getColumn();
 
 					Object value = model.getValueAt(row, column);
-					/* Si c'est un mnEmonique alors pas d'event A gErer
-					   (la regex vErifie s'il n'y a pas de lettre dans la String
+					/* Si c'est un mnEmonique alors pas de colonne A modifier
+					   (la regex vErifie s'il n'y a pas de lettre dans la String, cad pas de mnEmonique)
 					 */
 					String regex = "^[^a-zA-Z]*$";
 					// debug : System.out.println("valeur "+ value.toString()+" ligne : "+ row);
@@ -180,6 +187,10 @@ public class Memory extends JTable {
 							try {
 								// On retire temporairement le listener
 								model.removeTableModelListener(this);
+								// verif si la case mEmoire fait partie de la ram vidEo,
+								if (vr.faitPartieDeRamVideo(row)){
+									vr.setOctet(row - vr.getBaseRamVideo(),Integer.parseInt(value.toString()));
+								}
 
 								// Mise à jour des valeurs
 								if (column == COL_DEC) {

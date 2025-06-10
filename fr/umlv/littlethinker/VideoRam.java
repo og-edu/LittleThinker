@@ -5,10 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -17,6 +13,10 @@ public class VideoRam extends JPanel {
 	
 	private int largeur = 80;
 	private int hauteur = 24;
+	private int memoryLength = 0;
+	private int tailleTotale = 80 * 24;
+	private int baseRamVidEo = 0;
+
 	private final int TAILLECASE = 10;
 	/* le tableau contenant l'ensemble des JLabels qui constituent
 	la mEmoire vidEo (1 JLabel par bit)
@@ -25,22 +25,30 @@ public class VideoRam extends JPanel {
 
 	/**
 	 * ReprEsente la mEmoire vidEo en nombre de caractEres
-	 * (1 aaractEre = 1 octet de large et 8 octets de haut)
+	 * (1 caractEre = 1 octet de large et 8 octets de haut)
 	 * Organisation de la mEmoire :
-	 *  - commence A l'octet zEro
-	 *  - l'octet le plus A droite de la ligne 1 est 'largeur - 1'
-	 *  - l'octet le plus A gauche de la ligne 2 est 'largeur + 8"
-	 *  - le dernier octet (en bas A droite est '(largeur * hauteur * 8) - 1)
-	 * @param largeur : la largeur en caractEres
-	 * @param hauteur : la hauteur en caractEres
+	 * - commence A l'octet zEro
+	 * - l'octet le plus A droite de la ligne 1 est 'largeur - 1'
+	 * - l'octet le plus A gauche de la ligne 2 est 'largeur + 8"
+	 * - le dernier octet (en bas A droite est '(largeur * hauteur * 8) - 1)
+	 * (la mEmoire vidEo se positionne A partir de la fin de la mEmoire totale)
+	 * TODO : est-ce nEcessaire de gErer Ca ?
+	 *
+	 * @param largeur      : la largeur en caractEres
+	 * @param hauteur      : la hauteur en caractEres
+	 * @param memoryLength : la taille totale de la mEmoire
 	 * @throws HeadlessException
 	 */
-	public VideoRam(int largeur, int hauteur) throws HeadlessException {
+	public VideoRam(int largeur, int hauteur, int memoryLength) throws HeadlessException {
 		//super(titre);
 		//this.controller = ctrl;
 
-		this.largeur = largeur*8;
-		this.hauteur= hauteur*8;
+		this.largeur = largeur*8; // la largeur est Egale au nb de caractEres * 8 octets
+		this.hauteur= hauteur*8; // la hauteur est Egale au nb de caractEres * 8 octets
+		this.memoryLength = memoryLength;
+		this.tailleTotale = largeur*this.hauteur;// soit nb caract en hauteur * nb caract en largeur * 8
+		this.baseRamVidEo = this.memoryLength - this.tailleTotale;
+
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(TAILLECASE * largeur, TAILLECASE * hauteur));
 		setLocation(100, 200);
@@ -124,9 +132,9 @@ public class VideoRam extends JPanel {
 	}
 
 	/**
-	 *
-	 * @param lettre
-	 * @param c
+	 * crEe un JLabel et le retourne
+	 * @param lettre le caractEre qui sera eventuellement affichE dans le JLabel
+	 * @param c la valeur de la couleur pour le JLabel
 	 * @return
 	 */
 	private JLabel jl(String lettre,Color c) {
@@ -155,7 +163,6 @@ public class VideoRam extends JPanel {
 	 * @param octet
 	 * @param valeur
 	 */
-	// TODO : A tester
 	public void setOctet(int octet, int valeur){
 		int val = valeur & 0xFF;
 		for (int i=7;i>=0;i--) {
@@ -165,6 +172,28 @@ public class VideoRam extends JPanel {
 		}
 	}
 
+	/**
+	 * verifie qu'une adresse donnEe fait partie de la ram vidEo,
+	 * si c'est le cas les pixels correspondants dans celle-ci
+	 * seront positionnEs en consEquence
+	 * @param adresse
+	 * @return true si l'adresse fait partie de la ram vidEo
+	 */
+	public boolean faitPartieDeRamVideo (int adresse){
+		boolean faitPartie = false;
+		if (adresse  >= baseRamVidEo & adresse < this.memoryLength) {
+			faitPartie = true;
+		}
+		return faitPartie;
+	}
+
+	/**
+	 * retourne l'adresse base de la ram vidEo
+	 * @return
+	 */
+	public int getBaseRamVideo() {
+		return this.memoryLength - this.tailleTotale;
+	}
 //	@Override
 	/*public void update(GrilleVirtuelle gv) {
 		for (int i=1;i<=hauteur * largeur;i++) {
