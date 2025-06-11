@@ -181,7 +181,7 @@ public class Memory extends JTable {
 					 */
 					String regex = "^[^a-zA-Z]*$";
 					// debug : System.out.println("valeur "+ value.toString()+" ligne : "+ row);
-					if (value.toString().matches(regex)) {
+					if (value.toString().matches(regex) | column == COL_HEX) {
 						// si ce n'en est pas un alors traiter la valeur numErique
 						if (value != null && !value.toString().isEmpty()) {
 							try {
@@ -189,7 +189,21 @@ public class Memory extends JTable {
 								model.removeTableModelListener(this);
 								// verif si la case mEmoire fait partie de la ram vidEo,
 								if (vr.faitPartieDeRamVideo(row)){
-									vr.setOctet(row - vr.getBaseRamVideo(),Integer.parseInt(value.toString()));
+									switch (column) {
+										case COL_DEC:
+											vr.setOctet(row - vr.getBaseRamVideo(),Integer.parseInt(value.toString()));
+											break;
+											case COL_HEX:
+												String hexValue = (String) value;
+												int decimalValue = Integer.parseInt(hexValue, 16);
+												vr.setOctet(row - vr.getBaseRamVideo(),decimalValue);
+												break;
+												case COL_BIN:
+													String binaryValue = (String) value;
+													decimalValue = Integer.parseInt(binaryValue, 2);
+													vr.setOctet(row - vr.getBaseRamVideo(),decimalValue);
+													break;
+									}
 								}
 
 								// Mise à jour des valeurs
