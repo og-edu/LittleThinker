@@ -18,6 +18,7 @@ public class Memory extends JTable {
 	private final MemoryRenderer renderer;
 
 	// positionnement des colonnes
+	final int COL_ADD = 0;
 	final int COL_DEC = 1;
 	final int COL_HEX = 2;
 	final int COL_BIN = 3;
@@ -44,7 +45,7 @@ public class Memory extends JTable {
 		getColumnModel().getColumn(3).setHeaderValue("(bin)");
 		// on rEduit la taille de la colonne des adresses
 		getColumnModel().getColumn(0).setPreferredWidth(26);
-		// on empeche l'utilisateur de changer l'ordre des colonnes
+		// on empEche l'utilisateur de changer l'ordre des colonnes
 		getTableHeader().setReorderingAllowed(false);
 
 		// on prepare le listener d'Ecoute et de multi-conversion
@@ -56,7 +57,8 @@ public class Memory extends JTable {
 		this.getColumnModel().getColumn(1).setCellRenderer(renderer);
 
 		for (int i = 0; i < rowCount; i++) {
-			setValueAt(Integer.valueOf(i), i, 0);
+			// les adresses sont affichEes en hexa
+			setValueAt(String.format("%02X",i), i, 0);
 			setValueAt("", i, 1);
 		}
 		// on active le listener d'Ecoute et de multi-conversion
