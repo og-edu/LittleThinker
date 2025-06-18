@@ -16,6 +16,7 @@ public class VideoRam extends JPanel {
 	private int memoryLength = 0;
 	private int tailleTotale = 80 * 24;
 	private int baseRamVidEo = 0;
+	private int taillePile = 20;
 
 	private final int TAILLECASE = 10;
 	/* le tableau contenant l'ensemble des JLabels qui constituent
@@ -37,17 +38,19 @@ public class VideoRam extends JPanel {
 	 * @param largeur      : la largeur en caractEres
 	 * @param hauteur      : la hauteur en caractEres
 	 * @param memoryLength : la taille totale de la mEmoire
+	 * @param taillePile : la place rEservEe A la pile
 	 * @throws HeadlessException
 	 */
-	public VideoRam(int largeur, int hauteur, int memoryLength) throws HeadlessException {
+	public VideoRam(int largeur, int hauteur, int memoryLength, int taillePile) throws HeadlessException {
 		//super(titre);
 		//this.controller = ctrl;
 
 		this.largeur = largeur*8; // la largeur est Egale au nb de caractEres * 8 octets
 		this.hauteur= hauteur*8; // la hauteur est Egale au nb de caractEres * 8 octets
 		this.memoryLength = memoryLength;
-		this.tailleTotale = largeur*this.hauteur;// soit nb caract en hauteur * nb caract en largeur * 8
-		this.baseRamVidEo = this.memoryLength - this.tailleTotale;
+		this.tailleTotale = largeur*this.hauteur;// soit nb caract en hauteur * nb caract en largeur * 8 octets / caract
+		this.baseRamVidEo = this.memoryLength - this.taillePile - this.tailleTotale;
+		this.taillePile = taillePile;
 
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(TAILLECASE * largeur, TAILLECASE * hauteur));
@@ -181,7 +184,7 @@ public class VideoRam extends JPanel {
 	 */
 	public boolean faitPartieDeRamVideo (int adresse){
 		boolean faitPartie = false;
-		if (adresse  >= baseRamVidEo & adresse < this.memoryLength) {
+		if (adresse  >= baseRamVidEo & adresse < (this.memoryLength - this.taillePile)) {
 			faitPartie = true;
 		}
 		return faitPartie;
@@ -192,7 +195,7 @@ public class VideoRam extends JPanel {
 	 * @return
 	 */
 	public int getBaseRamVideo() {
-		return this.memoryLength - this.tailleTotale;
+		return this.baseRamVidEo;
 	}
 //	@Override
 	/*public void update(GrilleVirtuelle gv) {

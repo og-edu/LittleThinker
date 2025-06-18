@@ -14,6 +14,7 @@ public class LittleThinker extends JFrame{
 	private final Memory mem;
 	private final Terminal term;
 	static final int MEMORY_LENGTH = 256;
+    static final int TAILLE_PILE = 20;
     VideoRam vr = null;
 	
 	/**
@@ -22,7 +23,7 @@ public class LittleThinker extends JFrame{
 	public LittleThinker(){
         super("LittleThinker");
 
-        vr = new VideoRam(8,3,MEMORY_LENGTH);
+        vr = new VideoRam(8,3,MEMORY_LENGTH, TAILLE_PILE);
         //vr.setMinimumSize(new Dimension(500,1000));
         mem = new Memory(MEMORY_LENGTH,vr);
         term = new Terminal();
