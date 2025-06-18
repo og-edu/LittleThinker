@@ -3,6 +3,7 @@ package fr.umlv.littlethinker;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import java.awt.*;
 
 /**
  * Classe qui créé la fenetre principale du programme
@@ -22,14 +23,16 @@ public class LittleThinker extends JFrame{
         super("LittleThinker");
 
         vr = new VideoRam(8,3,MEMORY_LENGTH);
+        //vr.setMinimumSize(new Dimension(500,1000));
         mem = new Memory(MEMORY_LENGTH,vr);
         term = new Terminal();
+        //term.setPreferredSize(new Dimension(100,100));
         proc = new Processor(mem, term);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 650);
+        setSize(1920, 1080);
 
         JSplitPane splitV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, proc, new JScrollPane(term));
-//        add(splitV);
+        splitV.setMinimumSize(new Dimension(500,600));
         JSplitPane splitVr = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitV, new JScrollPane(vr));
         add(splitVr);
 
