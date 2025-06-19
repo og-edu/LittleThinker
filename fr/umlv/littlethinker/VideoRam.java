@@ -42,9 +42,6 @@ public class VideoRam extends JPanel {
 	 * @throws HeadlessException
 	 */
 	public VideoRam(int largeur, int hauteur, int memoryLength, int taillePile) throws HeadlessException {
-		//super(titre);
-		//this.controller = ctrl;
-
 		this.largeur = largeur*8; // la largeur est Egale au nb de caractEres * 8 octets
 		this.hauteur= hauteur*8; // la hauteur est Egale au nb de caractEres * 8 octets
 		this.memoryLength = memoryLength;
@@ -52,60 +49,16 @@ public class VideoRam extends JPanel {
 		this.baseRamVidEo = this.memoryLength - this.taillePile - this.tailleTotale;
 		this.taillePile = taillePile;
 
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(TAILLECASE * largeur, TAILLECASE * hauteur));
 		setLocation(100, 200);
-//		setResizable(false);
 		GridLayout layout = new GridLayout(this.hauteur, this.largeur);
 		setLayout(layout);
-//		createControls();
-		buildGrilleChiffres();
+		buildGrilleDeBits();
 		setVisible(true);
-//		pack();
-		
 	}
-	
-	/*private void createControls() {
-		 menuBar = new JMenuBar();
-	        menu = new JMenu("actions");
-	        addTestMenuItem = new JMenuItem("ajouter test en 0,0");
-	        menu.add(addTestMenuItem);
-	        addTestMenuItem.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent event) {
-	            	controller.ajouterMotHoriz("test", 0, 0);
-	            }
-	        });
-	        addEssaiMenuItemOk = new JMenuItem("ajouter essai en 5,4 (ok)");
-	        menu.add(addEssaiMenuItemOk); 
-	        addEssaiMenuItemOk.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent event) {
-	            	controller.ajouterMotHoriz("essai", 5, 4);
-	            }
-	        });
-	        addEssaiMenuItemKO = new JMenuItem("ajouter essai en 6,4 (KO)");
-	        menu.add(addEssaiMenuItemKO); 
-	        addEssaiMenuItemKO.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent event) {
-	        		controller.ajouterMotHoriz("essai", 6, 4);
-	        	}
-	        });
-	        JMenuItem exit = new JMenuItem("Quitter");
-	        exit.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent event) {
-	                System.exit(0);
-	            }
-	        });
 
-	        menu.add(exit);
-	        menuBar.add(menu);
-	        setJMenuBar(menuBar);
-		
-	}*/
-	
-	private void buildGrilleChiffres() {
+	private void buildGrilleDeBits() {
 		for (int i=1;i<=hauteur * largeur;i++) {
-//			JLabel jl = jl(numeroDeBit(i), new Color((100 + (i*40))%255 , (200 + (i*40))%255, (i*40)%255));
-//			JLabel jl = jl(numeroDeBit(i), new Color(couleurDeBit(i), couleurDeBit(i), couleurDeBit(i)));
 			JLabel jl = jl(numeroDeBit(i), new Color(0, 0, 0));
 			jl.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 			jl.setMaximumSize(new Dimension(TAILLECASE, TAILLECASE));
@@ -116,11 +69,12 @@ public class VideoRam extends JPanel {
 
 	/**
 	 * pour l'indication de la valeur du bit A sa position
+	 * (affiche de 0 A 7 dans le JLabel, 7 Etant le plus A gauche)
 	 * @param i l'indice du JLabel dans l'arrayList
 	 * @return
 	 */
 	private String numeroDeBit(int i) {
-		char c = (char) (47 + (i % 8));
+		char c = (char) (56 - (i % 8));
 		return String.valueOf(c);
 	}
 
@@ -192,83 +146,26 @@ public class VideoRam extends JPanel {
 
 	/**
 	 * retourne l'adresse base de la ram vidEo
-	 * @return
+	 * @return l'adresse base de la ram vidEo
 	 */
 	public int getBaseRamVideo() {
 		return this.baseRamVidEo;
 	}
-//	@Override
-	/*public void update(GrilleVirtuelle gv) {
-		for (int i=1;i<=hauteur * largeur;i++) {
-		}
-		
-		char[][] tab = gv.getTableauDeCases();
-		for (int h = 0; h < gv.getHauteur(); h++) {
-			for (int l = 0; l < gv.getLargeur(); l++) {
-				 tableau.get(h * gv.getLargeur()+ l).setText(String.valueOf(tab[l][h]));
-			}
-		}		
+
+	/**
+	 * retournela taille de la ram vidEo
+	 * @return la taille de la ram vidEo
+	 */
+	public int getTailleTotale() {
+		return tailleTotale;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * retourne la taille de la pile
+	 * @return la taille de la pile
+	 */
+	public int getTaillePile() {
+		return taillePile;
 	}
 
-	@Override
-	public void sendMessage(String s) {
-		JOptionPane.showMessageDialog(null, s);
-		
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		if (arg0.getSource() instanceof JLabel) {
-			System.out.println(arg0.getSource().toString());
-			JLabel j = (JLabel)arg0.getSource();
-			System.out.println(j.getText());
-		}
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setController(I_Controller ctrl) {
-		this.controller = ctrl;
-		
-	}
-
-	@Override
-	public Scene getScene() {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
-	
-
-		
-	
 }

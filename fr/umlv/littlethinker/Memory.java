@@ -16,6 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class Memory extends JTable {
 	private boolean editable;
 	private final MemoryRenderer renderer;
+	private final AddressRenderer addressRenderer;
 
 	// positionnement des colonnes
 	final int COL_ADD = 0;
@@ -31,7 +32,7 @@ public class Memory extends JTable {
 	 * Initialise la mEmoire
 	 *
 	 * @param rowCount      le nombre d'adresses dans la mEmoire
-	 * @param vr
+	 * @param vr la ram vidEo qui a EtE dEfinie
 	 */
 	public Memory(int rowCount, VideoRam vr){
 		super(rowCount, 4);
@@ -56,16 +57,29 @@ public class Memory extends JTable {
 		renderer = new MemoryRenderer();
 		this.getColumnModel().getColumn(1).setCellRenderer(renderer);
 
+		// TODO : A finaliser
+		addressRenderer = new AddressRenderer();
+		this.getColumnModel().getColumn(0).setCellRenderer(addressRenderer);
+		// on dEfinit la couleur de la colonne des adresses pour la ram vidEo
+		addressRenderer.setColorPlage(vr.getBaseRamVideo(),vr.getTailleTotale(),new Color (191,129,158));
+		// on dEfinit la couleur de la colonne des adresses pour la Pile
+		addressRenderer.setColorPlage(vr.getBaseRamVideo()+vr.getTailleTotale(),vr.getTaillePile(),new Color (224,194,205));
+
+		// ajout de la valeur des adresses au dEmarrage
 		for (int i = 0; i < rowCount; i++) {
 			// les adresses sont affichEes en hexa
-			setValueAt(String.format("%02X",i), i, 0);
-			setValueAt("", i, 1);
-		}
+			setValueAt(String.format("%02X",i), i, COL_ADD);
+			// les adresses sont affichEes en dEcimal
+			// setValueAt(Integer.valueOf(i), i, 0);
+			setValueAt("", i, COL_DEC);
+			setValueAt("", i, COL_HEX);
+			setValueAt("", i, COL_BIN);
+			}
+		// ajout de la valeur des adresses au dEmarrage
+
 		// on active le listener d'Ecoute et de multi-conversion
 		m.addTableModelListener(listener);
 	}
-
-
 
 	/**
 	 * Fait clignoter la case mEmoire voulue
@@ -95,7 +109,25 @@ public class Memory extends JTable {
 		revalidate();
 		
 	}
-	
+
+	/**
+	 * change la couleur de la case mEmoire voulue
+	 * @param row L'indice de la case A colorer
+	 * @param color couleur de coloration de la case ('R', 'G', ou 'B')
+	 */
+	private void testColore(int row, char color) {
+		AbstractTableModel model = (AbstractTableModel) this.getModel();
+		renderer.setRow(row);
+		renderer.setColor(color);
+		renderer.setI(64);
+		model.fireTableCellUpdated(row, 0);
+		revalidate();
+	}
+	// TODO : A conserver ?
+	public void coloreOctetsVideoRam(int adresseBaseVideoRam, int tailleVideoRam) {
+
+	}
+
 	/**
 	 * Placer un entier dans la mEmoire
 	 * @param row L'adresse dans laquelle value est placEe
@@ -165,8 +197,8 @@ public class Memory extends JTable {
 	/**
 	 * Gestion des valeurs numEriques saisies directement dans la mEmoire :
 	 * quand une valeur numErique (donc autre chose qu'un mnEmonique est
-	 * saisie en mEmoire, cette mEthode via le listener fera la conversion
-	 * dans les autres colonnes de la valeur dEcimale, binaire, hexa selon la
+	 * saisi en mEmoire, cette mEthode via le listener fera la conversion
+	 * dans les autres colonnes de la valeur dEcimale, binaire, hexa selon la saisie
 	 * @param
 	 */
 	private void setListener(AbstractTableModel model) {
