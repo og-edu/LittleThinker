@@ -605,7 +605,8 @@ public class Processor extends JPanel{
 			value = registers.getR(value);
 		}
 		else {
-			value = Integer.parseInt(cmd1);
+//			value = Integer.parseInt(cmd1); // TODO : conversion hexa
+			value = parseValue(cmd1); // TODO : conversion hexa
 		}
 		if (cmd2.charAt(0) != '$') {
 			term.printlnErr(Terminal.ERR_SYNTAX);
@@ -645,7 +646,7 @@ public class Processor extends JPanel{
 		if (cmd2.charAt(0) == '$')
 			value = mem.getValue(getAdress(cmd2), slider.getValue());
 		else
-			value = Integer.parseInt(cmd2);
+			value = Integer.parseInt(cmd2); // TODO : conversion hexa
 		
 		if (target == -1)
 			controls.setA(updateFlag(value, slider.getValue()), slider.getValue());
@@ -678,7 +679,7 @@ public class Processor extends JPanel{
 				value = registers.getR(value);
 			}
 			else 
-				value = Integer.parseInt(cmd1);
+				value = Integer.parseInt(cmd1); // TODO : conversion hexa
 			if (cmd0.equals("cmp")) {
 				updateFlag(controls.getA() - value, slider.getValue());
 				controls.setI(instructionIndex + 1, slider.getValue());
@@ -766,8 +767,16 @@ public class Processor extends JPanel{
 			res = registers.getR(Integer.parseInt(tmp.substring(1)));
 		}
 		else {
-			res = Integer.parseInt(tmp);
+			//res = Integer.parseInt(tmp); // TODO : conversion hexa
+			res = parseValue(tmp); // TODO : conversion hexa
 		}
 		return res;
+	}
+
+	private int parseValue (String value){
+		if (value.charAt(0) == 'x') {
+			// traiter la fin de la chaine comme une valeur hexa
+			return Integer.parseInt(value.substring(1), 16);
+		} else return Integer.parseInt(value); // return la valeur dEcimale
 	}
 }
