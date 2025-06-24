@@ -4,8 +4,8 @@ public class TODO {
     // DONE : afficher les adresses en hexadEcimal
     // DONE : mnEmonique ld (et autres) compatibles avec l'hexadecimal
     // DONE : ramVideo : rEserver une place en mEmoire haute pour la pile
-    // TODO :
-    // TODO :
+    // TODO : rajouter un mnEmonique nop (pour separer du code)
+    // TODO : ramVideo : afficher colonne adresses en hexa et en dEcimal
     // DONE : cases mEmoires communes A ram vidEo : changer la couleur de fond
     // DONE : octets de la colonne gauche de la ram video : couleur diffErente
     // TODO : indiquer dans l'interface la taille de la mEmoire vidEo
@@ -40,9 +40,6 @@ public class TODO {
     DIV : opErande 1 : idem que pour ADD
     MOD : opErande 1 : idem que pour ADD
     CMP : opErande 1 : idem que pour ADD
-
-
-
 
      */
 }

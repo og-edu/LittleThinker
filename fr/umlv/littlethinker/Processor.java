@@ -693,10 +693,9 @@ public class Processor extends JPanel{
 				case "mul": value = controls.getA() * value; break;
 				case "div": value = controls.getA() / value; break;
 				case "mod": value = controls.getA() % value; break;
-				///
 				case "or": value = controls.getA() | value; break;
 				case "and": value = controls.getA() & value; break;
-				///
+				case "xor": value = controls.getA() ^ value; break;
 				default :	term.printlnErr(Terminal.ERR_SYNTAX); return false;
 			}
 			if (controls.getStatus() == StatusRegister.D_STATUS)
