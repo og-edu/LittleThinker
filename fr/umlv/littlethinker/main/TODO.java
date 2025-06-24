@@ -2,7 +2,7 @@ package fr.umlv.littlethinker.main;
 
 public class TODO {
     // DONE : afficher les adresses en hexadEcimal
-    // TODO : mnEmonique ld (et autres) compatibles avec l'hexadecimal
+    // DONE : mnEmonique ld (et autres) compatibles avec l'hexadecimal
     // DONE : ramVideo : rEserver une place en mEmoire haute pour la pile
     // TODO :
     // TODO :
