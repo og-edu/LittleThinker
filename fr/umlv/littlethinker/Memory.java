@@ -65,12 +65,12 @@ public class Memory extends JTable {
 		// on dEfinit la couleur de la colonne des adresses pour la Pile
 		addressRenderer.setColorPlage(vr.getBaseRamVideo()+vr.getTailleTotale(),vr.getTaillePile(),new Color (224,194,205));
 
+		String adresse = "";
 		// ajout de la valeur des adresses au dEmarrage
 		for (int i = 0; i < rowCount; i++) {
-			// les adresses sont affichEes en hexa
-			setValueAt(String.format("%02X",i), i, COL_ADD);
-			// les adresses sont affichEes en dEcimal
-			// setValueAt(Integer.valueOf(i), i, 0);
+			// les adresses sont affichEes en hexa puis | puis en dEcimal
+			adresse = String.format("%02X | ",i)+ String.format("%03d", i);
+			setValueAt(adresse, i, COL_ADD);
 			setValueAt("", i, COL_DEC);
 			setValueAt("", i, COL_HEX);
 			setValueAt("", i, COL_BIN);
@@ -122,10 +122,6 @@ public class Memory extends JTable {
 		renderer.setI(64);
 		model.fireTableCellUpdated(row, 0);
 		revalidate();
-	}
-	// TODO : A conserver ?
-	public void coloreOctetsVideoRam(int adresseBaseVideoRam, int tailleVideoRam) {
-
 	}
 
 	/**
