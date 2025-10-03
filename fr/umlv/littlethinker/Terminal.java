@@ -47,7 +47,7 @@ public class Terminal extends JTextPane {
         setBackground(Color.BLACK);
         
         style = success;
-        appendText("LittleThinker v1.0");
+        appendText("Z6 v1.0");
 
         setEditable(false);
     }

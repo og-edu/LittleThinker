@@ -69,10 +69,10 @@ public class Processor extends JPanel{
         nextButton = new JButton("Next");
         nextButton.addActionListener(e -> this.next());
         buttons.add(nextButton);
-        // Affichage du bouton Info 
-        JButton infoButton = new JButton("Infos");
-        infoButton.addActionListener(e -> 
-		JOptionPane.showMessageDialog(this,
+        // Affichage du bouton Info
+        /*
+        MESSAGE PRECEDENT :
+        		JOptionPane.showMessageDialog(this,
 				"LittleThinker Version 1.0\nSous licence "+
 				"GNU General Public Licence.\n\nPetit "+
 				"simulateur de microprocesseur très basic, "+
@@ -95,6 +95,37 @@ public class Processor extends JPanel{
 				"fichier \"trace.txt\".\n"+
 				"\n\nPour plus d'infos, voir http://sylvain.cherrier.free.fr",
 				"LittleThinker",
+				JOptionPane.INFORMATION_MESSAGE)
+        );
+         */
+        JButton infoButton = new JButton("Infos");
+        infoButton.addActionListener(e -> 
+		JOptionPane.showMessageDialog(this,
+				"Z6 Version 1.0\nSous licence "+
+				"GNU General Public Licence.\n\nPetit "+
+				"simulateur de microprocesseur très basique, "+
+				"qui permet de\nvisualiser le fonctionnement"+
+				" théorique d'un micro-processeur.\n\n\n"+
+				"Auteurs : SCh (2005), SG et CC, Novembre 2017.\n"+
+				"Projet réalisé sous le tutorat de SC.\n\n\n"+
+				"Complété par Olivier GUTIERREZ (2025).\n\n\n"+
+				"Convention d'écriture : On préfixe par\n"+
+				"x pour une valeur hexa, décimal sinon (OG 2025),\n"+
+				"# pour un registre,\na pour l'accumulateur,\n"+
+				"$ pour une case mémoire,\nrien pour une"+
+				" valeur.\n\nNOTA : On peut utiliser l'accès"+
+				" mémoire indirect avec $# (aller à\n"+
+				"l'adresse indiquée dans le registre).\n\n"+
+				"Commandes implémentées :"+
+				"\nld-st-mv\nadd-sub-mul-div-mod-dec-inc-cmp\n"+
+				"bne-beq-bde-bnd-bmi-bpl-brn\nps-pp\n\n"+
+				"or-and-xor (OG 2025)\n\n"+
+				"st peut stocker le ProgramCounter (pc) et le StackPointer (sp)\n\n"+
+				"On peut cocher la case \"Trace\" pour sauvegarder\n"+
+				"l'état du processeur après chaque instruction lue dans le\n"+
+				"fichier \"trace.txt\".\n"+
+				"\n\nPour plus d'infos, voir le manuel",
+				"Z6 - simulateur de microprocesseur",
 				JOptionPane.INFORMATION_MESSAGE)
         );
         buttons.add(infoButton);
@@ -126,7 +157,7 @@ public class Processor extends JPanel{
         add(new JPanel());
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.X_AXIS));
-        titlePanel.add(new JLabel("LittleThinker"));
+        titlePanel.add(new JLabel("Z6", SwingConstants.CENTER));
         add(titlePanel);
         add(new JPanel());
         add(textFields);

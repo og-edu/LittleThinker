@@ -21,7 +21,7 @@ public class LittleThinker extends JFrame{
 	 * Initialise le processeur, la mémoire et le terminal dans deux JSplitPane
 	 */
 	public LittleThinker(){
-        super("LittleThinker");
+        super("Z6 - simulateur de microprocesseur");
 
         vr = new VideoRam(8,3,MEMORY_LENGTH, TAILLE_PILE);
         //vr.setMinimumSize(new Dimension(500,1000));
