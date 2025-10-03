@@ -684,7 +684,8 @@ public class Processor extends JPanel{
 				controls.setI(instructionIndex + 1, slider.getValue());
 				return true;
 			}
-			if (cmd0.equals("div") && (controls.getA() % value) != 0) {
+			if ((cmd0.equals("div") || cmd0.equals("lsr")) && (controls.getA() % value) != 0) {
+			// if ((cmd0.equals("div") || cmd0.equals("lsr")) && (controls.getA() % value) != 0) { // ajout de LSR si on veut lsr + nb de bits
 				controls.setStatus(StatusRegister.D_STATUS, slider.getValue());
 			}
 			switch(cmd0) {
@@ -696,6 +697,8 @@ public class Processor extends JPanel{
 				case "or": value = controls.getA() | value; break;
 				case "and": value = controls.getA() & value; break;
 				case "xor": value = controls.getA() ^ value; break;
+				//case "lsr": value = controls.getA() / value; break;
+				//case "asl": value = controls.getA() * 2; break;
 				default :	term.printlnErr(Terminal.ERR_SYNTAX); return false;
 			}
 			if (controls.getStatus() == StatusRegister.D_STATUS)

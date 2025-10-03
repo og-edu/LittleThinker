@@ -1,10 +1,11 @@
 package fr.umlv.littlethinker.main;
 
 public class TODO {
+    // TODO : rajouter un mnEmonique nop (pour separer du code)
+    // TODO : rajouter un mnEmonique  (pour separer du code)
     // DONE : afficher les adresses en hexadEcimal
     // DONE : mnEmonique ld (et autres) compatibles avec l'hexadecimal
     // DONE : ramVideo : rEserver une place en mEmoire haute pour la pile
-    // TODO : rajouter un mnEmonique nop (pour separer du code)
     // DONE : adresses mEmoire : afficher colonne adresses en hexa et en dEcimal
     // DONE : cases mEmoires communes A ram vidEo : changer la couleur de fond
     // DONE : octets de la colonne gauche de la ram video : couleur diffErente
