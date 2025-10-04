@@ -43,15 +43,46 @@ public class LittleThinker extends JFrame{
         setVisible(true);
         splitV.setDividerLocation(0.5);
         splitH.setDividerLocation(0.75);
-        // TODO : remove tests
-        ///  TESTS
-        vr.setOctet(00,0b00000000);
-        vr.setOctet(8, 0b00011000);
-        vr.setOctet(16,0b00100100);
-        vr.setOctet(24,0b00100100);
-        vr.setOctet(32,0b01111110);
-        vr.setOctet(40,0b01000010);
-        vr.setOctet(48,0b01000010);
+        // Ecriture dans la video ram
+/*        int colonne = 0;   // lettre Z
+        int caractere = 8;
+        vr.setOctet(caractere * 0 + colonne,0b00000000);
+        vr.setOctet(caractere * 1 + colonne, 126);
+        vr.setOctet(caractere * 2 + colonne,6);
+        vr.setOctet(caractere * 3 + colonne,12);
+        vr.setOctet(caractere * 4 + colonne,48);
+        vr.setOctet(caractere * 5 + colonne,96);
+        vr.setOctet(caractere * 6 + colonne,126);
+        vr.setOctet(caractere * 7 + colonne,0);
+        colonne ++; // lettre 6
+        vr.setOctet(caractere * 0 + colonne,0b00000000);
+        vr.setOctet(caractere * 1 + colonne, 126);
+        vr.setOctet(caractere * 2 + colonne,66);
+        vr.setOctet(caractere * 3 + colonne,64);
+        vr.setOctet(caractere * 4 + colonne,126);
+        vr.setOctet(caractere * 5 + colonne,66);
+        vr.setOctet(caractere * 6 + colonne,126);
+        vr.setOctet(caractere * 7 + colonne,0);*/
+        // Ecriture dans la mEmoire
+        int colonne = 44;   // lettre Z
+        int caractere = 8;
+        mem.setValue(caractere * 0 + colonne,"0");
+        mem.setValue(caractere * 1 + colonne,"126");
+        mem.setValue(caractere * 2 + colonne,"6");
+        mem.setValue(caractere * 3 + colonne,"12");
+        mem.setValue(caractere * 4 + colonne,"48");
+        mem.setValue(caractere * 5 + colonne,"96");
+        mem.setValue(caractere * 6 + colonne,"126");
+        mem.setValue(caractere * 7 + colonne,"0");
+        colonne ++; // lettre 6
+        mem.setValue(caractere * 0 + colonne,"0");
+        mem.setValue(caractere * 1 + colonne,"126");
+        mem.setValue(caractere * 2 + colonne,"66");
+        mem.setValue(caractere * 3 + colonne,"64");
+        mem.setValue(caractere * 4 + colonne,"126");
+        mem.setValue(caractere * 5 + colonne,"66");
+        mem.setValue(caractere * 6 + colonne,"126");
+        mem.setValue(caractere * 7 + colonne,"0");
         int adresse = 191;
         boolean result = false;
 //        for (adresse = 50; adresse <256; adresse++) {

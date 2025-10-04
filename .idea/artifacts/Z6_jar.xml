@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Z6:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Z6_jar</output-path>
+    <root id="archive" name="Z6.jar">
+      <element id="module-output" name="LittleThinker" />
+    </root>
+  </artifact>
+</component>
